@@ -1,0 +1,9 @@
+query WhoAmI {
+  viewer {
+    ...myUserFields
+  }
+}
+
+fragment myUserFields on User {
+  login
+}
