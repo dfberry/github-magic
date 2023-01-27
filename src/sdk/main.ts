@@ -6,16 +6,24 @@ import { gitHubGraphQLOrgReposAgExtendedV3 } from './v3/getdata'
 import { version } from '../../package.json'
 
 export type QueryType = 'whoami' | 'org_repos' | 'org_repos_extended' | 'status'
-
+export type RunOptionsType = {
+  pat: string
+  gitHubGraphQlUrl: string
+  querytype: QueryType
+  orgName?: string
+  maxItems?: number
+  maxPageSize?: number
+  maxDelayForRateLimit?: number
+}
 export async function run({
   pat,
   gitHubGraphQlUrl,
   querytype,
   orgName,
-  maxItems,
-  maxPageSize,
-  maxDelayForRateLimit
-}: any): Promise<unknown> {
+  maxItems = 1, // -1 means all
+  maxPageSize = 10,
+  maxDelayForRateLimit = 5000
+}: RunOptionsType): Promise<unknown> {
   if (!pat) {
     throw new Error('GitHub Personal Access Token is required')
   }

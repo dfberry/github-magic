@@ -1,4 +1,4 @@
-import { GITHUB_GRAPHQL, TIME_0_SECONDS } from '../../action/utils/constants'
+import { GITHUB_GRAPHQL, TIME_0_SECONDS } from '../../sdk/utils/constants'
 import {
   afterEach,
   beforeAll,
@@ -12,7 +12,7 @@ import { getSdk, MyRepoFieldsFragment } from '../../generated/graphql.sdk'
 import {
   gitHubGraphQLWhoAmI,
   gitHubGraphQLOrgReposAg
-} from '../../action/v2/getdata'
+} from '../../sdk/v2/getdata'
 import { GraphQLClient } from 'graphql-request'
 import { TEST_DATA_WHOAMI_1 } from '../mockdata/whoami.data'
 import { TEST_DAT_ORG_REPO_ITEM_1 } from '../mockdata/orgrepoag.data'
