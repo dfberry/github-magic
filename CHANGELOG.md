@@ -1,3 +1,11 @@
+# 2.0.0
+
+* Refactored into @diberry/github-magic
+* TBD: [SO target.history]()
+
+# 1.14.5
+* build with .d.ts files
+
 # 1.14.4
 * Add 'status' as query type - returns package.json version
 

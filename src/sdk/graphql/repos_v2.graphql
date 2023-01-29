@@ -14,14 +14,14 @@ query OrgReposAg_v2($organization: String!, $pageSize: Int, $after: String) {
       edges {
         cursor
         node {
-          ...MyRepoFields
+          ...Repo
         }
       }
     }
   }
 }
 
-fragment MyRepoFields on Repository {
+fragment Repo on Repository {
   repositoryName: name
   id
   url

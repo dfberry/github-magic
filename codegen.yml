@@ -13,7 +13,15 @@ generates:
           content: '/* eslint-disable */'
 config:
   # omits __typename fields from all models
-  skipTypename: true
+  #skipTypename: true
+  # Flatten fragment spread and inline fragments into a simple selection set before generating.
+  flattenGeneratedTypes: true
+  # Include all fragments types when flattenGeneratedTypes is enabled.
+  flattenGeneratedTypesIncludeFragments: true
+  # Allow to override the type value of Maybe.
+  maybeValue: 'T | null | undefined'
+  typesPrefix: 'I'
+  enumPrefix: true
   # custom GraphQL Scalars to TypeScript types map
   scalars:
     String: string

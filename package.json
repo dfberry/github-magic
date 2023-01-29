@@ -1,21 +1,26 @@
 {
-  "name": "@dfberry/github-magic",
-  "version": "1.14.4",
-  "private": true,
+  "name": "@diberry/github-magic",
+  "version": "2.0.0",
+  "private": false,
   "description": "TypeScript template action",
   "main": "dist/src/sdk/main.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "clean": "rm -rf dist && rm -rf package && rm -rf ./src/generated",
+    "clean": "rm -rf dist && rm -rf ./src/generated",
     "build": "npm run build:format:fix && npm run build:sdk && npm run build:lint  && npm run build:tsc",
     "build:tsc": "tsc",
     "build:sdk": "npm run codegen",
     "build:format:fix": "prettier --write ./src",
     "build:lint": "eslint src/**/*.ts",
-    "package": "ncc build -o package --no-cache --source-map --license licenses.txt",
-    "package2": "npm run build && NODE_OPTIONS='--openssl-legacy-provider' ncc build -o package --no-cache --source-map --license licenses.txt",
     "test": "jest --detectOpenHandles",
-    "all": "npm run clean && npm run build && npm run package && npm test",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "test:all" : "npm run build && npm run test",
+    "all": "npm run clean && npm run build && npm test",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "mgr:publish": "npm publish",
+    "mgr:unpublish": "npm unpublish @dfberry/github-magic@1.14.5",
+    "mgr:deprecate": "npm deprecate @dfberry/github-magic@1.14.5 \"Use the latest version\""
   },
   "repository": {
     "type": "git",

@@ -18,14 +18,14 @@ query OrgReposAgExtended_v3(
       edges {
         cursor
         node {
-          ...RepoFieldsFragment_v3
+          ...RepoEx
         }
       }
     }
   }
 }
 
-fragment IssueFragment_v3 on Issue {
+fragment Issue on Issue {
   id
   title
   url
@@ -36,7 +36,7 @@ fragment IssueFragment_v3 on Issue {
   lastEditedAt
 }
 
-fragment PullRequestFragment_v3 on PullRequest {
+fragment PR on PullRequest {
   title
   isDraft
   url
@@ -47,32 +47,32 @@ fragment PullRequestFragment_v3 on PullRequest {
   createdAt
 }
 
-fragment GitActionFragment_v3 on GitActor {
+fragment GitAction on GitActor {
   date
   email
   name
 }
 
-fragment StatusFragment_v3 on Status {
+fragment Status on Status {
   id
   commit {
     id
   }
 }
 
-fragment CommitFragment_v3 on Commit {
+fragment Commit on Commit {
   author {
-    ...GitActionFragment_v3
+    ...GitAction
   }
   status {
-    ...StatusFragment_v3
+    ...Status
   }
   message
   pushedDate
   committedDate
 }
 
-fragment RepoFieldsFragment_v3 on Repository {
+fragment RepoEx on Repository {
   repositoryName: name
   id
   url
@@ -95,13 +95,13 @@ fragment RepoFieldsFragment_v3 on Repository {
   }
   lastPr: pullRequests(last: 1) {
     nodes {
-      ...PullRequestFragment_v3
+      ...PR
     }
   }
   lastIssue: issues(last: 1) {
     edges {
       node {
-        ...IssueFragment_v3
+        ...Issue
       }
     }
   }
@@ -112,7 +112,7 @@ fragment RepoFieldsFragment_v3 on Repository {
         history(first: 1) {
           edges {
             node {
-              ...CommitFragment_v3
+              ...Commit
             }
           }
         }
