@@ -101,7 +101,7 @@ export async function reposExtended({
   maxItems = 1,
   maxPageSize = 1,
   maxDelayForRateLimit = 5000
-}: IRepoParameters): Promise<unknown[]> {
+}: IRepoParameters): Promise<IRepoExRefactored[]> {
   if (!pat) {
     throw new Error('GitHub Personal Access Token is required')
   }
@@ -152,6 +152,7 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
 
   let hasNextPage = false
   let currentData = 0
+  let currentPage = 0
   const reposList: IRepoExFragment[] = []
   const reposRefactored: IRepoExRefactored[] = []
 
@@ -162,6 +163,7 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     // }
 
     const data = await reposExQueryGraphQlSDK(gitHubGraphQLUrl, pat, variables)
+    currentPage += 1
 
     // Get repos
     if (data?.organization?.repositories?.edges) {
@@ -174,14 +176,23 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
       variables.after = getNextCursor(
         data?.organization?.repositories?.pageInfo?.endCursor
       )
+      currentData += reposExtendedDirty.length
+      if (variables.after === undefined || currentData > max_data) {
+        console.log(
+          `totalitems: ${currentData}, page: ${currentPage}, hasNextPage: ${hasNextPage}, cursor: not found - break`
+        )
+        break
+      }
 
       // Collect enough data?
-      currentData += reposExtendedDirty.length
       hasNextPage = shouldGetNextPage(
         currentData,
         max_data,
         data.organization?.repositories.pageInfo.hasNextPage,
         data?.organization?.repositories?.pageInfo?.endCursor
+      )
+      console.log(
+        `totalitems: ${currentData}, page: ${currentPage}, hasNextPage: ${hasNextPage}, cursor: ${variables.after}`
       )
 
       // rate limit - TBD: Fix this

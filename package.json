@@ -1,6 +1,6 @@
 {
   "name": "@diberry/github-magic",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "private": false,
   "description": "TypeScript template action",
   "main": "dist/src/sdk/main.js",
@@ -18,6 +18,7 @@
     "test:all" : "npm run build && npm run test",
     "all": "npm run clean && npm run build && npm test",
     "codegen": "graphql-codegen --config codegen.yml",
+    "run:all": "node ./dist/src/sdk/runall.js",
     "mgr:publish": "npm publish",
     "mgr:unpublish": "npm unpublish @dfberry/github-magic@1.14.5",
     "mgr:deprecate": "npm deprecate @dfberry/github-magic@1.14.5 \"Use the latest version\""

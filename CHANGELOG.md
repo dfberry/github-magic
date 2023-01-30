@@ -1,3 +1,12 @@
+# 2.0.2
+
+* break on max_items or undefined cursor
+
+# 2.0.1
+
+* logging of each row for `repos_extended`: 
+    `totalitems: 300, page: 6, hasNextPage: true, cursor: Y3Vyc29yOnYyOpIgzgVd3Ug=`
+
 # 2.0.0
 
 * Refactored into @diberry/github-magic

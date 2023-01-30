@@ -6,3 +6,4 @@ src/__tests__/**
 src/generated/**
 src/mockdata/**
 package/
+src/sdk/runall.ts
