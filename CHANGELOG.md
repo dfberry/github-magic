@@ -1,3 +1,7 @@
+# 2.0.3
+
+* fix max data check
+
 # 2.0.2
 
 * break on max_items or undefined cursor

@@ -177,9 +177,15 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
         data?.organization?.repositories?.pageInfo?.endCursor
       )
       currentData += reposExtendedDirty.length
-      if (variables.after === undefined || currentData > max_data) {
+      if (variables.after === undefined) {
         console.log(
-          `totalitems: ${currentData}, page: ${currentPage}, hasNextPage: ${hasNextPage}, cursor: not found - break`
+          `totalitems: ${currentData}, page: ${currentPage}, hasNextPage: ${hasNextPage}, cursor- === undefined`
+        )
+        break
+      }
+      if (max_data !== -1 && currentData > max_data) {
+        console.log(
+          `totalitems: ${currentData}, page: ${currentPage}, hasNextPage: ${hasNextPage}, max_data reached`
         )
         break
       }

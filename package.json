@@ -1,6 +1,6 @@
 {
   "name": "@diberry/github-magic",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "private": false,
   "description": "TypeScript template action",
   "main": "dist/src/sdk/main.js",
