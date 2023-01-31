@@ -46,7 +46,7 @@ export type IRepoExRefactored = {
     message: string | null | undefined
     pushedDate?: string | null | undefined
     committedDate: string | null | undefined
-    status?: Maybe<IStatus>
+    status?: string | null | undefined
   }
 }
 
@@ -214,8 +214,24 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
   // reformulate extended properties
   reposList.map((repo: IRepoExFragment) => {
     const lastCommitTarget = repo.lastPushToDefaultBranch?.target
-    // @ts-ignore
-    const commit: ICommit = lastCommitTarget.history.edges[0].node
+    let commit
+
+    if (
+      lastCommitTarget !== null &&
+      lastCommitTarget !== undefined &&
+      'history' in lastCommitTarget
+    ) {
+      const history = lastCommitTarget.history
+
+      if (
+        history?.edges !== null &&
+        history?.edges !== undefined &&
+        history?.edges.length > 0
+      ) {
+        const node = history?.edges[0]?.node
+        commit = node
+      }
+    }
 
     // TBD: fix this
     reposRefactored.push({
@@ -299,10 +315,10 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
       },
       lastPushToDefaultBranch: {
         name: repo.lastPushToDefaultBranch?.name as string,
-        message: commit.message,
-        pushedDate: commit.pushedDate,
-        committedDate: commit.committedDate,
-        status: commit.status
+        message: commit?.message,
+        pushedDate: commit?.pushedDate,
+        committedDate: commit?.committedDate,
+        status: commit?.status?.state as string
       }
     })
   })

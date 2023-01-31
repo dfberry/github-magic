@@ -55,9 +55,7 @@ fragment GitAction on GitActor {
 
 fragment Status on Status {
   id
-  commit {
-    id
-  }
+  state
 }
 
 fragment Commit on Commit {
