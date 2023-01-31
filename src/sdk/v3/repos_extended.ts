@@ -1,8 +1,5 @@
 /* eslint no-console: 0 */ // --> OFF
 import {
-  Maybe,
-  IStatus,
-  ICommit,
   IRepoExFragment,
   IOrgReposAgExtended_V3QueryVariables
 } from '../../generated/graphql.sdk'
