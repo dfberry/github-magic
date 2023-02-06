@@ -1,13 +1,13 @@
 /* eslint no-console: 0 */ // --> OFF
 import {
-  IRepoFragment,
+  IOrgReposAg_V2Query,
   IOrgReposAg_V2QueryVariables,
-  IOrgReposAg_V2Query
+  IRepoFragment
 } from '../../generated/graphql.sdk'
 
-import { waitfor } from '../utils/utils'
-import { reposQueryGraphQlSDK } from '../utils/queries'
 import { IRepoParameters } from '../utils/models'
+import { reposQueryGraphQlSDK } from '../utils/queries'
+import { waitfor } from '../utils/utils'
 
 export { IRepoFragment } from '../../generated/graphql.sdk'
 

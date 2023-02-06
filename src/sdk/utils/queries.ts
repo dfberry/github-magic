@@ -1,13 +1,13 @@
+import { GraphQLClient } from 'graphql-request'
 import {
-  getSdk,
-  Sdk,
-  IWhoAmIQuery,
+  IOrgReposAgExtended_V3Query,
+  IOrgReposAgExtended_V3QueryVariables,
   IOrgReposAg_V2Query,
   IOrgReposAg_V2QueryVariables,
-  IOrgReposAgExtended_V3Query,
-  IOrgReposAgExtended_V3QueryVariables
+  IWhoAmIQuery,
+  Sdk,
+  getSdk
 } from '../../generated/graphql.sdk'
-import { GraphQLClient } from 'graphql-request'
 
 export type GraphQLResult = { __typename: string }
 export type ValueOfTypename<T extends GraphQLResult> = T['__typename']

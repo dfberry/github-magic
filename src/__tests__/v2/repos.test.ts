@@ -1,19 +1,11 @@
-import { GITHUB_GRAPHQL, TIME_0_SECONDS } from '../../sdk/utils/constants'
-import {
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test
-} from '@jest/globals'
+import { beforeAll, describe, expect, test } from '@jest/globals'
 import dotenv from 'dotenv'
-import { getSdk } from '../../generated/graphql.sdk'
-import { IRepoFragment, repos } from '../../sdk/v2/repos'
-import { GraphQLClient } from 'graphql-request'
-import { TEST_DAT_ORG_REPO_ITEM_1 } from '../mockdata/orgrepoag.data'
+import { GITHUB_GRAPHQL, TIME_0_SECONDS } from '../../sdk/utils/constants'
+
+import { repos } from '../../sdk/v2/repos'
+
 import * as reposSDK from '../../sdk/utils/queries'
-import { IRepoParameters } from '../../sdk/utils/models'
+import { TEST_DAT_ORG_REPO_ITEM_1 } from '../mockdata/orgrepoag.data'
 
 dotenv.config()
 

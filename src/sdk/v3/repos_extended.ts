@@ -1,18 +1,41 @@
 /* eslint no-console: 0 */ // --> OFF
 import {
-  IRepoExFragment,
-  IOrgReposAgExtended_V3QueryVariables
+  ILanguageConnection,
+  IOrgReposAgExtended_V3QueryVariables,
+  IRepoExFragment
 } from '../../generated/graphql.sdk'
-import { waitfor } from '../utils/utils'
-import { reposExQueryGraphQlSDK } from '../utils/queries'
 import { IRepoParameters } from '../utils/models'
-
+import { reposExQueryGraphQlSDK } from '../utils/queries'
+import { languagesRefactor } from '../utils/refactor'
+import { waitfor } from '../utils/utils'
 export type IRepoExRefactored = {
   id: string
   url: string
+  repositoryName: string
   descriptionHTML: string
   updatedAt: string
-  repositoryName: string
+  diskUsage: number
+  languages: string[]
+  is: {
+    isArchived: boolean
+    isEmpty: boolean
+    isPrivate: boolean
+    isTemplate: boolean
+    isSecurityPolicyEnabled?: boolean | null
+    isDisabled: boolean
+  }
+  has: {
+    hasWikiEnabled: boolean
+  }
+  date: {
+    createdAt: string
+    updatedAt: string
+    pushedAt: string
+  }
+  legal: {
+    license: string
+  }
+  watchers: { totalCount: number }
   stargazers: { totalCount: number }
   forks: { totalCount: number }
   issues: { totalCount: number }
@@ -108,6 +131,7 @@ export async function reposExtended({
   if (!orgName) {
     throw new Error('orgName is required')
   }
+  console.log(`found params`)
   return await gitHubGraphQLOrgReposAgExtendedV3(
     pat,
     gitHubGraphQLUrl,
@@ -146,6 +170,7 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     pageSize: page_size,
     after: null
   }
+  console.log(`created variables`)
 
   let hasNextPage = false
   let currentData = 0
@@ -159,7 +184,12 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     //   variables.pageSize = max_data - currentData
     // }
 
+    console.log(`requesting data`)
+    console.log(`gitHubGraphQLUrl ${gitHubGraphQLUrl}`)
+    console.log(`pat ${pat}`)
+    console.log(`variables ${JSON.stringify(variables)}`)
     const data = await reposExQueryGraphQlSDK(gitHubGraphQLUrl, pat, variables)
+    console.log(`data returned`)
     currentPage += 1
 
     // Get repos
@@ -208,6 +238,8 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     }
   } while (hasNextPage)
 
+  console.log(`paging finished`)
+
   // reformulate extended properties
   reposList.map((repo: IRepoExFragment) => {
     const lastCommitTarget = repo.lastPushToDefaultBranch?.target
@@ -230,13 +262,40 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
       }
     }
 
+    // Languages
+    const refactoredLanguages = repo?.languages
+      ? languagesRefactor(repo?.languages as ILanguageConnection)
+      : []
+
     // TBD: fix this
     reposRefactored.push({
       id: repo.id,
       url: repo.url,
       descriptionHTML: repo.descriptionHTML,
       updatedAt: repo.updatedAt,
+      diskUsage: repo.diskUsage as number,
       repositoryName: repo.repositoryName,
+      languages: refactoredLanguages,
+      legal: {
+        license: repo.licenseInfo?.name as string
+      },
+      is: {
+        isArchived: repo.isArchived,
+        isEmpty: repo.isEmpty,
+        isPrivate: repo.isPrivate,
+        isTemplate: repo.isTemplate,
+        isSecurityPolicyEnabled: repo.isSecurityPolicyEnabled,
+        isDisabled: repo.isDisabled
+      },
+      has: {
+        hasWikiEnabled: repo.hasWikiEnabled
+      },
+      date: {
+        createdAt: repo.createdAt,
+        updatedAt: repo.updatedAt,
+        pushedAt: repo.pushedAt
+      },
+      watchers: repo.watchers,
       stargazers: repo.stargazers,
       forks: repo.forks,
       issues: repo.issues,
@@ -320,5 +379,6 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     })
   })
 
+  console.log(`refactoring finished`)
   return reposRefactored
 }

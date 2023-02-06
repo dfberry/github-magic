@@ -9,7 +9,7 @@ async function main(): Promise<unknown> {
     gitHubGraphQLUrl: 'https://api.github.com/graphql',
     orgName: 'Azure-Samples',
     maxItems: -1,
-    maxPageSize: 50,
+    maxPageSize: 40,
     maxDelayForRateLimit: 5000
   })
 }

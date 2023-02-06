@@ -75,7 +75,34 @@ fragment RepoEx on Repository {
   id
   url
   descriptionHTML
+  autoMergeAllowed
+  isArchived
+  isEmpty
+  isPrivate
+  isTemplate
+  isSecurityPolicyEnabled
+  isDisabled
+  hasWikiEnabled
+  createdAt
   updatedAt
+  pushedAt
+  diskUsage
+  licenseInfo {
+    name
+  }
+  primaryLanguage {
+    name
+  }
+  languages(first: 5) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+  watchers {
+    totalCount
+  }
   stargazers {
     totalCount
   }
