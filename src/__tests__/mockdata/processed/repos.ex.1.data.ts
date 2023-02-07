@@ -7,7 +7,8 @@ export const REPOS_EXTENDED_PROCESSED = [
     updatedAt: '2023-02-06T17:06:16Z',
     diskUsage: 233518,
     repositoryName: 'cognitive-services-speech-sdk',
-    languages: ['Makefile', 'C++', 'C#', 'C', 'Shell'],
+    primaryLanguage: 'C#',
+    languages: ['C', 'C# (Primary)', 'C++', 'Makefile', 'Shell'],
     legal: { license: 'MIT License' },
     is: {
       isArchived: false,
@@ -73,7 +74,8 @@ export const REPOS_EXTENDED_PROCESSED = [
     updatedAt: '2023-02-05T17:31:40Z',
     diskUsage: 11694,
     repositoryName: 'active-directory-aspnetcore-webapp-openidconnect-v2',
-    languages: ['C#', 'CSS', 'JavaScript', 'HTML', 'PowerShell'],
+    primaryLanguage: 'PowerShell',
+    languages: ['C#', 'CSS', 'HTML', 'JavaScript', 'PowerShell (Primary)'],
     legal: { license: 'MIT License' },
     is: {
       isArchived: false,
@@ -199,7 +201,15 @@ export const REPOS_EXTENDED_PROCESSED = [
     updatedAt: '2023-02-06T04:51:42Z',
     diskUsage: 97768,
     repositoryName: 'blockchain',
-    languages: ['PowerShell', 'Shell', 'Python', 'C#', 'Scala'],
+    primaryLanguage: 'HTML',
+    languages: [
+      'C#',
+      'HTML (Primary)',
+      'PowerShell',
+      'Python',
+      'Scala',
+      'Shell'
+    ],
     legal: { license: 'MIT License' },
     is: {
       isArchived: false,
@@ -261,7 +271,8 @@ export const REPOS_EXTENDED_PROCESSED = [
     updatedAt: '2023-02-04T13:18:01Z',
     diskUsage: 140815,
     repositoryName: 'Cognitive-Speech-TTS',
-    languages: ['Java', 'C#', 'JavaScript', 'PHP', 'Python'],
+    primaryLanguage: 'C#',
+    languages: ['C# (Primary)', 'Java', 'JavaScript', 'PHP', 'Python'],
     legal: { license: 'Other' },
     is: {
       isArchived: false,
@@ -319,7 +330,15 @@ export const REPOS_EXTENDED_PROCESSED = [
     updatedAt: '2023-02-03T09:56:15Z',
     diskUsage: 71248,
     repositoryName: 'modern-data-warehouse-dataops',
-    languages: ['PowerShell', 'Shell', 'Python', 'TSQL', 'Dockerfile'],
+    primaryLanguage: 'Shell',
+    languages: [
+      'Dockerfile',
+      'PowerShell',
+      'Python',
+      'Shell (Primary)',
+      'TSQL'
+    ],
+
     legal: { license: 'MIT License' },
     is: {
       isArchived: false,

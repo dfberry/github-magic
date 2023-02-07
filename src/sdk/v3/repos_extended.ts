@@ -15,6 +15,7 @@ export type IRepoExRefactored = {
   descriptionHTML: string
   updatedAt: string
   diskUsage: number
+  primaryLanguage: string
   languages: string[]
   is: {
     isArchived: boolean
@@ -264,7 +265,10 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
 
     // Languages
     const refactoredLanguages = repo?.languages
-      ? languagesRefactor(repo?.languages as ILanguageConnection)
+      ? languagesRefactor(
+          repo?.languages as ILanguageConnection,
+          repo?.primaryLanguage?.name as string
+        )
       : []
 
     // TBD: fix this
@@ -275,6 +279,7 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
       updatedAt: repo.updatedAt,
       diskUsage: repo.diskUsage as number,
       repositoryName: repo.repositoryName,
+      primaryLanguage: repo.primaryLanguage?.name as string,
       languages: refactoredLanguages,
       legal: {
         license: repo.licenseInfo?.name as string

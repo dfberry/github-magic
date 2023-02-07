@@ -1,3 +1,7 @@
+# 2.1.1
+
+* languages array and primary language inclusion/marked
+
 # 2.1.0
 
 * More properties on repo

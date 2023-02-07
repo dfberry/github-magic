@@ -1,6 +1,6 @@
 {
   "name": "@diberry/github-magic",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": false,
   "description": "TypeScript template action",
   "main": "dist/src/sdk/main.js",
@@ -15,7 +15,7 @@
     "build:format:fix": "prettier --write ./src",
     "build:lint": "eslint src/**/*.ts",
     "test": "jest --detectOpenHandles",
-    "test:all" : "npm run build && npm run test",
+    "test:all": "npm run build && npm run test",
     "all": "npm run clean && npm run build && npm test",
     "codegen": "graphql-codegen --config codegen.yml",
     "run:all": "node ./dist/src/sdk/runall.js",
@@ -42,6 +42,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.8",
     "axios": "^1.2.0",
     "dotenv": "^16.0.3",
+    "fast-sort": "^3.2.1",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "isomorphic-fetch": "^3.0.0"
