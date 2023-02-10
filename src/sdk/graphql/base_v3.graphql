@@ -1,0 +1,144 @@
+fragment IssueBase on Issue {
+  id
+  title
+  url
+  number
+  state
+  createdAt
+  closedAt
+  lastEditedAt
+}
+
+fragment PrBase on PullRequest {
+  title
+  isDraft
+  url
+  state
+  number
+  mergedAt
+  closedAt
+  createdAt
+}
+
+fragment GitActorBase on GitActor {
+  date
+  email
+  name
+}
+
+fragment StatusBase on Status {
+  id
+  state
+}
+fragment CommitBase on Commit {
+  messageHeadline
+  message
+  authoredDate
+  pushedDate
+  committedDate
+}
+
+fragment CommitAll on Commit {
+  author {
+    ...GitActorBase
+  }
+  status {
+    ...StatusBase
+  }
+  ...CommitBase
+}
+fragment RepositoryPageInfoBase on PageInfo {
+  startCursor
+  hasNextPage
+  endCursor
+}
+fragment RepositoryBase on Repository{
+  repositoryName: name
+  id
+  url
+  descriptionHTML
+  autoMergeAllowed
+  isArchived
+  isEmpty
+  isPrivate
+  isTemplate
+  isSecurityPolicyEnabled
+  isDisabled
+  hasWikiEnabled
+  createdAt
+  updatedAt
+  pushedAt
+  diskUsage
+}
+
+fragment LicenseBase on License {
+  name
+}
+fragment LabelBase on Label {
+  name
+}
+fragment UserAll on User {
+    email
+    name
+}
+
+fragment RepositoryExAll on Repository{
+  ...RepositoryBase
+  licenseInfo {
+    ...LicenseBase
+  }
+  primaryLanguage {
+    name
+  }
+  languages(first: 100) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+  watchers {
+    totalCount
+  }
+  stargazers {
+    totalCount
+  }
+  forks {
+    totalCount
+  }
+  issues(states: [OPEN]) {
+    totalCount
+  }
+  pullRequests(states: [OPEN]) {
+    totalCount
+  }
+  openPrs: pullRequests(states: [OPEN]) {
+    totalCount
+  }
+  lastPr: pullRequests(last: 1) {
+    nodes {
+      ...PrBase
+    }
+  }
+  lastIssue: issues(last: 1) {
+    edges {
+      node {
+        ...IssueBase
+      }
+    }
+  }
+  lastPushToDefaultBranch: defaultBranchRef {
+    name
+    target {
+      ... on Commit {
+        history(first: 1) {
+          edges {
+            node {
+              ...CommitAll
+            }
+          }
+        }
+      }
+    }
+  }
+}

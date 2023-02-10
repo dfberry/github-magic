@@ -1,3 +1,9 @@
+# 2.2.1
+
+* Added last queries (issue, pr, commit)
+* Added defaultBranch query
+* Add UserRepos query
+
 # 2.1.1
 
 * languages array and primary language inclusion/marked

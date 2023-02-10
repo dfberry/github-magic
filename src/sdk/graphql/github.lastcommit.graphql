@@ -1,0 +1,11 @@
+query GetLastCommitInRepo($owner: String!, $repo: String!, $branch: String!) {
+  repository(name: $repo, owner: $owner) {
+    ref(qualifiedName: $branch) {
+      target {
+        ... on Commit {
+          ...CommitAll
+        }
+      }
+    }
+  }
+}

@@ -5,13 +5,20 @@ import {
   IOrgReposAg_V2Query,
   IOrgReposAg_V2QueryVariables,
   IWhoAmIQuery,
+  IGetDefaultBranchInRepoQuery,
+  IGetDefaultBranchInRepoQueryVariables,
+  IGetLastCommitInRepoQuery,
+  IGetLastCommitInRepoQueryVariables,
+  IGetLastIssueInRepoQuery,
+  IGetLastIssueInRepoQueryVariables,
+  IGetLastPrInRepoQuery,
+  IGetLastPrInRepoQueryVariables,
   Sdk,
   getSdk
 } from '../../generated/graphql.sdk'
 
 export type GraphQLResult = { __typename: string }
 export type ValueOfTypename<T extends GraphQLResult> = T['__typename']
-
 export function isType<
   Result extends GraphQLResult,
   Typename extends ValueOfTypename<Result>
@@ -60,4 +67,59 @@ export async function reposExQueryGraphQlSDK(
   }
 
   return await sdk.OrgReposAgExtended_v3(variables, requestHeaders)
+}
+
+export async function defaultBranchQueryGraphQlSDK(
+  gitHubGraphQlUrl: string,
+  pat: string,
+  variables: IGetDefaultBranchInRepoQueryVariables
+): Promise<IGetDefaultBranchInRepoQuery> {
+  const sdk: Sdk = getSdk(new GraphQLClient(gitHubGraphQlUrl))
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${pat}`
+  }
+
+  return await sdk.GetDefaultBranchInRepo(variables, requestHeaders)
+}
+
+export async function lastCommitQueryGraphQlSDK(
+  gitHubGraphQlUrl: string,
+  pat: string,
+  variables: IGetLastCommitInRepoQueryVariables
+): Promise<IGetLastCommitInRepoQuery> {
+  const sdk: Sdk = getSdk(new GraphQLClient(gitHubGraphQlUrl))
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${pat}`
+  }
+
+  return await sdk.GetLastCommitInRepo(variables, requestHeaders)
+}
+export async function lastIssueQueryGraphQlSDK(
+  gitHubGraphQlUrl: string,
+  pat: string,
+  variables: IGetLastIssueInRepoQueryVariables
+): Promise<IGetLastIssueInRepoQuery> {
+  const sdk: Sdk = getSdk(new GraphQLClient(gitHubGraphQlUrl))
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${pat}`
+  }
+
+  return await sdk.GetLastIssueInRepo(variables, requestHeaders)
+}
+
+export async function lastPrQueryGraphQlSDK(
+  gitHubGraphQlUrl: string,
+  pat: string,
+  variables: IGetLastPrInRepoQueryVariables
+): Promise<IGetLastPrInRepoQuery> {
+  const sdk: Sdk = getSdk(new GraphQLClient(gitHubGraphQlUrl))
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${pat}`
+  }
+
+  return await sdk.GetLastPrInRepo(variables, requestHeaders)
 }

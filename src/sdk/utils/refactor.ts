@@ -31,7 +31,6 @@ export function languagesRefactor(
       arr.push(`${primaryLanguage} (Primary)`)
     }
     const sorted = inPlaceSort(arr).asc()
-    console.log(sorted)
 
     return sorted
   }

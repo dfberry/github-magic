@@ -1,0 +1,39 @@
+
+fragment LastIssueInRepoAll on Issue {
+  ...IssueBase
+  participants(first: 10) {
+    edges {
+      node {
+        ...UserAll
+      }
+    }
+  }
+  labels(first: 5) {
+    edges {
+      node {
+        ...LabelBase
+      }
+    }
+  }
+}
+
+query GetLastIssueInRepo(
+  $owner: String!
+  $repo: String!
+  $pageSize: Int
+  $after: String
+) {
+  repository(owner: $owner, name: $repo) {
+    issues(
+      last: $pageSize
+      after: $after
+      orderBy: { field: CREATED_AT, direction: DESC }
+    ) {
+      edges {
+        node {
+          ...LastIssueInRepoAll
+        }
+      }
+    }
+  }
+}
