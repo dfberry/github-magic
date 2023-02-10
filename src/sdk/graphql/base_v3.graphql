@@ -52,7 +52,7 @@ fragment RepositoryPageInfoBase on PageInfo {
   hasNextPage
   endCursor
 }
-fragment RepositoryBase on Repository{
+fragment RepositoryBase on Repository {
   repositoryName: name
   id
   url
@@ -78,11 +78,11 @@ fragment LabelBase on Label {
   name
 }
 fragment UserAll on User {
-    email
-    name
+  email
+  name
 }
 
-fragment RepositoryExAll on Repository{
+fragment RepositoryExAll on Repository {
   ...RepositoryBase
   licenseInfo {
     ...LicenseBase

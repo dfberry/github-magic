@@ -1,8 +1,4 @@
-query UserReposAgExtended_v3(
-  $user: String!
-  $pageSize: Int
-  $after: String
-) {
+query UserReposAgExtended_v3($user: String!, $pageSize: Int, $after: String) {
   user(login: $user) {
     repositories(
       first: $pageSize
@@ -13,7 +9,7 @@ query UserReposAgExtended_v3(
       pageInfo {
         ...RepositoryPageInfoBase
       }
-      edges{
+      edges {
         cursor
         node {
           ...RepositoryExAll

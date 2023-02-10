@@ -1,4 +1,3 @@
-
 fragment LastIssueInRepoAll on Issue {
   ...IssueBase
   participants(first: 10) {
