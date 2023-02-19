@@ -1,0 +1,26 @@
+query OrgReposAgExtended_v3(
+  $organization: String!
+  $pageSize: Int
+  $after: String
+) {
+  organization(login: $organization) {
+    repositories(
+      first: $pageSize
+      after: $after
+      orderBy: { field: STARGAZERS, direction: DESC }
+    ) {
+      totalCount
+      pageInfo {
+        startCursor
+        hasNextPage
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...RepoEx
+        }
+      }
+    }
+  }
+}

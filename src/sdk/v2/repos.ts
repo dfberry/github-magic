@@ -4,8 +4,7 @@ import {
   IOrgReposAg_V2QueryVariables,
   IRepoFragment
 } from '../../generated/graphql.sdk'
-
-import { IRepoParameters } from '../utils/models'
+import { IRepoParameters } from '../utils/types.repos'
 import { reposQueryGraphQlSDK } from '../utils/queries'
 import { waitfor } from '../utils/utils'
 
