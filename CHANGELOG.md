@@ -1,3 +1,7 @@
+# 2.3.1
+
+* Refactored to make room for cursor support for user repos
+
 # 2.2.1
 
 * Added last queries (issue, pr, commit)
