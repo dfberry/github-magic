@@ -4,6 +4,8 @@ import {
   IOrgReposAgExtended_V3QueryVariables,
   IOrgReposAg_V2Query,
   IOrgReposAg_V2QueryVariables,
+  IUserReposAgExtended_V3QueryVariables,
+  IUserReposAgExtended_V3Query,
   IWhoAmIQuery,
   IGetDefaultBranchInRepoQuery,
   IGetDefaultBranchInRepoQueryVariables,
@@ -55,7 +57,7 @@ export async function reposQueryGraphQlSDK(
   return await sdk.OrgReposAg_v2(variables, requestHeaders)
 }
 
-export async function reposExQueryGraphQlSDK(
+export async function orgReposExQueryGraphQlSDK(
   gitHubGraphQlUrl: string,
   pat: string,
   variables: IOrgReposAgExtended_V3QueryVariables
@@ -67,6 +69,19 @@ export async function reposExQueryGraphQlSDK(
   }
 
   return await sdk.OrgReposAgExtended_v3(variables, requestHeaders)
+}
+export async function userReposExQueryGraphQlSDK(
+  gitHubGraphQlUrl: string,
+  pat: string,
+  variables: IUserReposAgExtended_V3QueryVariables
+): Promise<IUserReposAgExtended_V3Query> {
+  const sdk: Sdk = getSdk(new GraphQLClient(gitHubGraphQlUrl))
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${pat}`
+  }
+
+  return await sdk.UserReposAgExtended_v3(variables, requestHeaders)
 }
 
 export async function defaultBranchQueryGraphQlSDK(

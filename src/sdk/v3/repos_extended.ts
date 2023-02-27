@@ -1,12 +1,8 @@
 /* eslint no-console: 0 */ // --> OFF
-import {
-  IRepoExRefactored,
-  IRepoParameters,
-  RepoOwnerType,
-  IRepoParametersInternal
-} from '../utils/types.repos'
+import { IRepoExRefactored, IRepoParameters } from '../utils/types.repos'
 
 import { gitHubGraphQLOrgReposAgExtendedV3 } from './repos_orgs'
+import { gitHubGraphQLUserReposAgExtendedV3 } from './repos_user'
 import {
   ILanguageConnection,
   IRepoExFragment
@@ -28,23 +24,37 @@ export async function reposExtended({
   if (!gitHubGraphQLUrl) {
     throw new Error('GitHub GraphQL URL is required')
   }
-  if (!orgName) {
-    if (repoOwnerType === 'organization') {
+
+  let reposList = []
+  console.log(`Find ${repoOwnerType} repos for ${orgName}`)
+
+  if (repoOwnerType === 'organization') {
+    if (!orgName) {
       throw new Error('orgName is required')
     }
-    if (repoOwnerType === 'user') {
+
+    reposList = await gitHubGraphQLOrgReposAgExtendedV3(
+      pat,
+      gitHubGraphQLUrl,
+      orgName,
+      maxItems,
+      maxPageSize,
+      maxDelayForRateLimit
+    )
+  } else {
+    if (!orgName) {
       throw new Error("orgName param, as user's account name, is required")
     }
+
+    reposList = await gitHubGraphQLUserReposAgExtendedV3(
+      pat,
+      gitHubGraphQLUrl,
+      orgName,
+      maxItems,
+      maxPageSize,
+      maxDelayForRateLimit
+    )
   }
-  console.log(`found params`)
-  const reposList = await gitHubGraphQLOrgReposAgExtendedV3(
-    pat,
-    gitHubGraphQLUrl,
-    orgName,
-    maxItems,
-    maxPageSize,
-    maxDelayForRateLimit
-  )
 
   const refactoredReposList = reformulateRepos(reposList)
 

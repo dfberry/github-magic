@@ -18,7 +18,8 @@
     "test:all": "npm run build && npm run test",
     "all": "npm run clean && npm run build && npm test",
     "codegen": "graphql-codegen --config codegen.yml",
-    "run:all": "node ./dist/src/sdk/runall.js",
+    "run:org": "node ./dist/src/sdk/runall_org.js",
+    "run:user": "node ./dist/src/sdk/runall_user.js",
     "mgr:publish": "npm publish",
     "mgr:unpublish": "npm unpublish @dfberry/github-magic@1.14.5",
     "mgr:deprecate": "npm deprecate @dfberry/github-magic@1.14.5 \"Use the latest version\""
