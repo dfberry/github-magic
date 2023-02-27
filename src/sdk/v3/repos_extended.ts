@@ -20,13 +20,19 @@ export async function reposExtended({
 }: IRepoParameters): Promise<IRepoExRefactored[]> {
   if (!pat) {
     throw new Error('GitHub Personal Access Token is required')
+  } else {
+    console.log(`pat: ${pat}`)
   }
   if (!gitHubGraphQLUrl) {
     throw new Error('GitHub GraphQL URL is required')
+  } else {
+    console.log(`github url: ${gitHubGraphQLUrl}`)
   }
 
   let reposList = []
-  console.log(`Find ${repoOwnerType} repos for ${orgName}`)
+  console.log(
+    `Find ${repoOwnerType} repos for ${orgName} ${maxItems} maxItems ${maxPageSize} delay ${maxDelayForRateLimit}`
+  )
 
   if (repoOwnerType === 'organization') {
     if (!orgName) {

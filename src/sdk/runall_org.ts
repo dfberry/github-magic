@@ -2,6 +2,7 @@
 /* eslint github/no-then: 0 */ // --> OFF
 import { reposExtended } from './main'
 import dotenv from 'dotenv'
+import { writeFileSync } from 'fs'
 dotenv.config()
 
 async function main(): Promise<unknown> {
@@ -11,10 +12,13 @@ async function main(): Promise<unknown> {
     orgName: 'Azure-Samples',
     maxItems: -1,
     maxPageSize: 40,
-    maxDelayForRateLimit: 5000,
+    maxDelayForRateLimit: 2000,
     repoOwnerType: 'organization'
   })
 }
 main()
-  .then((result) => console.log(result))
+  .then((result) => {
+    writeFileSync('org.json', JSON.stringify(result))
+    console.log('done')
+  })
   .catch((error) => console.error(error))

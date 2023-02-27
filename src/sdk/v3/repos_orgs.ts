@@ -49,8 +49,8 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
     // }
 
     console.log(`requesting data`)
-    console.log(`gitHubGraphQLUrl ${gitHubGraphQLUrl}`)
-    console.log(`pat ${pat}`)
+    //console.log(`gitHubGraphQLUrl ${gitHubGraphQLUrl}`)
+    //console.log(`pat ${pat}`)
     console.log(`variables ${JSON.stringify(variables)}`)
     const data = await orgReposExQueryGraphQlSDK(
       gitHubGraphQLUrl,

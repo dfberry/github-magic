@@ -1,6 +1,7 @@
 # 2.3.1
 
 * Refactored to make room for cursor support for user repos
+    * TBD - add tests fro user
 
 # 2.2.1
 
