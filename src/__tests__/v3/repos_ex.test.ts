@@ -26,7 +26,7 @@ describe('repos extended for orgs', () => {
 
   test('Repos extended success', async () => {
     let spy = jest
-      .spyOn(reposSDK, 'reposExQueryGraphQlSDK')
+      .spyOn(reposSDK, 'orgReposExQueryGraphQlSDK')
       .mockImplementation(returnMockData)
 
     // These values are based on current mock data

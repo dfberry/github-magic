@@ -53,8 +53,7 @@ export const REPOS_EXTENDED_PROCESSED = [
     },
     lastPushToDefaultBranch: {
       name: 'master',
-      message:
-        'Fix README of JavaScript browser samples (#1823)',
+      message: 'Fix README of JavaScript browser samples (#1823)',
       pushedDate: '2023-02-06T14:55:15Z',
       committedDate: '2023-02-06T14:55:10Z',
       status: undefined
@@ -114,7 +113,7 @@ export const REPOS_EXTENDED_PROCESSED = [
     },
     lastPushToDefaultBranch: {
       name: 'master',
-      message:'Aremo ms/sample4 3 basher (#656)',
+      message: 'Aremo ms/sample4 3 basher (#656)',
       pushedDate: '2022-12-19T21:16:23Z',
       committedDate: '2022-12-19T21:16:21Z',
       status: undefined
@@ -180,8 +179,7 @@ export const REPOS_EXTENDED_PROCESSED = [
     },
     lastPushToDefaultBranch: {
       name: 'master',
-      message:
-        'Merge pull request #254',
+      message: 'Merge pull request #254',
       pushedDate: '2021-09-13T13:57:58Z',
       committedDate: '2021-09-13T13:57:56Z',
       status: undefined
@@ -306,8 +304,7 @@ export const REPOS_EXTENDED_PROCESSED = [
     },
     lastPushToDefaultBranch: {
       name: 'main',
-      message:
-        'Merge pull request #588',
+      message: 'Merge pull request #588',
       pushedDate: '2023-01-30T10:34:16Z',
       committedDate: '2023-01-30T10:34:14Z',
       status: undefined

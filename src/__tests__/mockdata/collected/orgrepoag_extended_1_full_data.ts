@@ -167,8 +167,7 @@ export const TEST_DAT_ORG_REPO_EXTENDED_ITEM_2_COLLECTED = [
                   name: 'Alex Remo'
                 },
                 status: null,
-                message:
-                  'Aremo ms/sample4 3 basher (#656)',
+                message: 'Aremo ms/sample4 3 basher (#656)',
                 pushedDate: '2022-12-19T21:16:23Z',
                 committedDate: '2022-12-19T21:16:21Z'
               }
@@ -257,8 +256,7 @@ export const TEST_DAT_ORG_REPO_EXTENDED_ITEM_2_COLLECTED = [
                   name: 'Pat Altimore'
                 },
                 status: null,
-                message:
-                  'Merge pull request #254',
+                message: 'Merge pull request #254',
                 pushedDate: '2021-09-13T13:57:58Z',
                 committedDate: '2021-09-13T13:57:56Z'
               }
@@ -434,8 +432,7 @@ export const TEST_DAT_ORG_REPO_EXTENDED_ITEM_2_COLLECTED = [
                   name: 'Balakrishna Akuleti'
                 },
                 status: null,
-                message:
-                  'Merge pull request #588',
+                message: 'Merge pull request #588',
                 pushedDate: '2023-01-30T10:34:16Z',
                 committedDate: '2023-01-30T10:34:14Z'
               }

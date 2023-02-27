@@ -27,7 +27,7 @@ describe('org repos extended - not refactored - just over cursors', () => {
   // TBD: test across cursor, and inside of cursor (max items is smaller than cursor)
   test('Org repos in cursor', async () => {
     let spy = jest
-      .spyOn(reposSDK, 'reposExQueryGraphQlSDK')
+      .spyOn(reposSDK, 'orgReposExQueryGraphQlSDK')
       .mockImplementation(returnMockData)
 
     // These values are based on current mock data

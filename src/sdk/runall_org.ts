@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */ // --> OFF
+/* eslint github/no-then: 0 */ // --> OFF
 import { reposExtended } from './main'
 import dotenv from 'dotenv'
 dotenv.config()
