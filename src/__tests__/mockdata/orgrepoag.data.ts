@@ -152,7 +152,7 @@ export const TEST_DAT_ORG_REPO_ITEM_1 = {
             id: 'MDEwOlJlcG9zaXRvcnkyMjYyMTMxMDI=',
             url: 'https://github.com/Azure-Samples/modern-data-warehouse-dataops',
             descriptionHTML:
-              '<div>DataOps for the Modern Data Warehouse on Microsoft Azure. <a href="https://aka.ms/mdw-dataops" rel="nofollow">https://aka.ms/mdw-dataops</a>.</div>',
+              '<div>DataOps for the Modern Data Warehouse on Microsoft Azure.</div>',
             updatedAt: '2022-12-06T22:13:59Z',
             stargazers: {
               totalCount: 394
@@ -311,7 +311,7 @@ export const TEST_DAT_ORG_REPO_ITEM_1 = {
             id: 'MDEwOlJlcG9zaXRvcnk4MDU0MjY5NQ==',
             url: 'https://github.com/Azure-Samples/azure-cli-samples',
             descriptionHTML:
-              '<div>Contains Azure CLI scripts samples used for documentation at <a href="https://docs.microsoft.com" rel="nofollow">https://docs.microsoft.com</a></div>',
+              '<div>Contains Azure CLI scripts samples used for documentation</div>',
             updatedAt: '2022-12-05T19:02:49Z',
             stargazers: {
               totalCount: 289

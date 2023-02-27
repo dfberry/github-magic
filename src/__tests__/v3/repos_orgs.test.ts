@@ -3,28 +3,29 @@ import { deepEqual } from 'assert'
 import dotenv from 'dotenv'
 import { GITHUB_GRAPHQL, TIME_0_SECONDS } from '../../sdk/utils/constants'
 import * as reposSDK from '../../sdk/utils/queries'
-import { reposExtended } from '../../sdk/v3/repos_extended'
+import { gitHubGraphQLOrgReposAgExtendedV3 } from '../../sdk/v3/repos_orgs'
 import { TEST_DAT_ORG_REPO_EXTENDED_ITEM_2 } from '../mockdata/orgrepoag_extended_1_full_data'
-import { REPOS_EXTENDED_PROCESSED } from '../mockdata/processed/repos.ex.1.data'
-
+import { TEST_DAT_ORG_REPO_EXTENDED_ITEM_2_COLLECTED } from '../mockdata/collected/orgrepoag_extended_1_full_data'
+import { IRepoExFragment } from '../../generated/graphql.sdk'
 dotenv.config()
 
-describe('repos extended for orgs', () => {
+describe('org repos extended - not refactored - just over cursors', () => {
   let fakePat: string
   let fakeRawData: any
-  let fakeProcessedData: any
+  let fakeCollected: any
 
   beforeAll(() => {
     fakePat = '123'
     fakeRawData = TEST_DAT_ORG_REPO_EXTENDED_ITEM_2
-    fakeProcessedData = REPOS_EXTENDED_PROCESSED
+    fakeCollected = TEST_DAT_ORG_REPO_EXTENDED_ITEM_2_COLLECTED
   })
   async function returnMockData(): Promise<any> {
     console.log('mock')
     return Promise.resolve(fakeRawData)
   }
 
-  test('Repos extended success', async () => {
+  // TBD: test across cursor, and inside of cursor (max items is smaller than cursor)
+  test('Org repos in cursor', async () => {
     let spy = jest
       .spyOn(reposSDK, 'reposExQueryGraphQlSDK')
       .mockImplementation(returnMockData)
@@ -35,21 +36,18 @@ describe('repos extended for orgs', () => {
     const rateLimitMs = TIME_0_SECONDS
 
     // repos will be refactored here
-    const reposReturned = await reposExtended({
-      pat: fakePat,
-      gitHubGraphQLUrl: GITHUB_GRAPHQL,
-      orgName: 'Azure-Sample',
-      maxItems: numberOfRecordsReturned,
-      maxPageSize: pageSize,
-      maxDelayForRateLimit: rateLimitMs,
-      repoOwnerType: 'organization'
-    })
+    const reposReturned = await gitHubGraphQLOrgReposAgExtendedV3(
+      fakePat,
+      GITHUB_GRAPHQL,
+      'Azure-Sample',
+      numberOfRecordsReturned,
+      pageSize,
+      rateLimitMs
+    )
 
     expect(Array.isArray(reposReturned)).toBe(true)
     expect(reposReturned.length).toEqual(5)
-    expect(JSON.stringify(reposReturned)).toEqual(
-      JSON.stringify(REPOS_EXTENDED_PROCESSED)
-    )
+    expect(JSON.stringify(reposReturned)).toEqual(JSON.stringify(fakeCollected))
 
     spy.mockReset()
   })

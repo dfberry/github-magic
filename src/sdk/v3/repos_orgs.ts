@@ -1,15 +1,11 @@
 /* eslint no-console: 0 */ // --> OFF
 import {
-  ILanguageConnection,
   IOrgReposAgExtended_V3QueryVariables,
   IRepoExFragment
 } from '../../generated/graphql.sdk'
 import { reposExQueryGraphQlSDK } from '../utils/queries'
-import { languagesRefactor } from '../utils/refactor'
+import { getNextCursor, shouldGetNextPage } from '../utils/repos'
 import { waitfor } from '../utils/utils'
-
-import { IRepoExRefactored } from '../utils/types.repos'
-import { shouldGetNextPage, getNextCursor } from '../utils/repos'
 
 /**
  * Org Repos extended (last commit, pr, issue)
@@ -28,7 +24,7 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
   max_data: number, // Number of repos to return in total, -1 means all data
   page_size: number, // Max page size for GitHub
   rate_limit_ms: number
-): Promise<IRepoExRefactored[]> {
+): Promise<IRepoExFragment[]> {
   if (!gitHubGraphQLUrl)
     throw new Error('gitHubGraphQLOrgRepos::missing gitHubGraphQLUrl')
   if (!pat) throw new Error('gitHubGraphQLOrgRepos::missing pat')
@@ -45,7 +41,6 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
   let currentData = 0
   let currentPage = 0
   const reposList: IRepoExFragment[] = []
-  const reposRefactored: IRepoExRefactored[] = []
 
   do {
     // Adjust page size to return correct number
@@ -108,150 +103,5 @@ export async function gitHubGraphQLOrgReposAgExtendedV3(
   } while (hasNextPage)
 
   console.log(`paging finished`)
-
-  // reformulate extended properties
-  reposList.map((repo: IRepoExFragment) => {
-    const lastCommitTarget = repo.lastPushToDefaultBranch?.target
-    let commit
-
-    if (
-      lastCommitTarget !== null &&
-      lastCommitTarget !== undefined &&
-      'history' in lastCommitTarget
-    ) {
-      const history = lastCommitTarget.history
-
-      if (
-        history?.edges !== null &&
-        history?.edges !== undefined &&
-        history?.edges.length > 0
-      ) {
-        const node = history?.edges[0]?.node
-        commit = node
-      }
-    }
-
-    // Languages
-    const refactoredLanguages = repo?.languages
-      ? languagesRefactor(
-          repo?.languages as ILanguageConnection,
-          repo?.primaryLanguage?.name as string
-        )
-      : []
-
-    // TBD: fix this
-    reposRefactored.push({
-      id: repo.id,
-      url: repo.url,
-      descriptionHTML: repo.descriptionHTML,
-      updatedAt: repo.updatedAt,
-      diskUsage: repo.diskUsage as number,
-      repositoryName: repo.repositoryName,
-      primaryLanguage: repo.primaryLanguage?.name as string,
-      languages: refactoredLanguages,
-      legal: {
-        license: repo.licenseInfo?.name as string
-      },
-      is: {
-        isArchived: repo.isArchived,
-        isEmpty: repo.isEmpty,
-        isPrivate: repo.isPrivate,
-        isTemplate: repo.isTemplate,
-        isSecurityPolicyEnabled: repo.isSecurityPolicyEnabled,
-        isDisabled: repo.isDisabled
-      },
-      has: {
-        hasWikiEnabled: repo.hasWikiEnabled
-      },
-      date: {
-        createdAt: repo.createdAt,
-        updatedAt: repo.updatedAt,
-        pushedAt: repo.pushedAt
-      },
-      watchers: repo.watchers,
-      stargazers: repo.stargazers,
-      forks: repo.forks,
-      issues: repo.issues,
-      pullRequests: repo.pullRequests,
-      openPrs: repo.openPrs,
-      lastPr: {
-        title:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? (repo.lastPr.nodes[0]?.title as string)
-            : '',
-        isDraft:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? (repo.lastPr.nodes[0]?.isDraft as boolean)
-            : false,
-        url:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? (repo.lastPr.nodes[0]?.url as string)
-            : '',
-        state:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? (repo.lastPr.nodes[0]?.state as string)
-            : '',
-        number:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? repo.lastPr.nodes[0]?.number
-            : '',
-        mergedAt:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? repo.lastPr.nodes[0]?.mergedAt
-            : '',
-        closedAt:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? repo.lastPr.nodes[0]?.closedAt
-            : '',
-        createdAt:
-          repo.lastPr.nodes && repo.lastPr.nodes.length > 0
-            ? repo.lastPr.nodes[0]?.createdAt
-            : ''
-      },
-      lastIssue: {
-        id:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.id as string)
-            : '',
-        title:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.title as string)
-            : '',
-        url:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.url as string)
-            : '',
-        number:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? repo.lastIssue.edges[0]?.node?.number
-            : '',
-        state:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.state as string)
-            : '',
-        createdAt:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.state as string)
-            : '',
-        closedAt:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.closedAt as string)
-            : '',
-        lastEditedAt:
-          repo.lastIssue.edges && repo.lastIssue.edges.length > 0
-            ? (repo.lastIssue.edges[0]?.node?.lastEditedAt as string)
-            : ''
-      },
-      lastPushToDefaultBranch: {
-        name: repo.lastPushToDefaultBranch?.name as string,
-        message: commit?.message,
-        pushedDate: commit?.pushedDate,
-        committedDate: commit?.committedDate,
-        status: commit?.status?.state as string
-      }
-    })
-  })
-
-  console.log(`refactoring finished`)
-  return reposRefactored
+  return reposList
 }

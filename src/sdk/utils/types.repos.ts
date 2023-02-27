@@ -73,6 +73,26 @@ export interface Historyable {
   history: Object
 }
 export type RepoMeta = 'lastissue' | 'lastpr'
+export type RepoOwnerType = 'organization' | 'user'
+export type IRepoParametersInternal = {
+  pat: string
+  gitHubGraphQLUrl: string
+  orgName: string
+  maxItems: number
+  maxPageSize: number
+  maxDelayForRateLimit: number
+  repoOwnerType: RepoOwnerType
+}
+/**
+ * @typedef {Object} IRepoParameters - Query params
+ * @property {string} pat - GitHub authentication: personal access token or user's bearer token
+ * @property {string} gitHubGraphQLUrl - URL string to GitHub GraphQL endpoint
+ * @property {string} orgName - organization or user account name - to find repos under that
+ * @property {number} maxItems - maxItems in total, -1 indicates all cursors
+ * @property {number} maxPageSize - # of items in page, smaller # to stay within timeout
+ * @property {number} maxDelayForRateLimit - 5000 - milliseconds to rate limit bypass
+ * @property {string} repoOwnerType - Optional - `organization` or `user` - defaults to `organization` for backward compatibility
+ */
 export type IRepoParameters = {
   pat: string
   gitHubGraphQLUrl: string
@@ -80,4 +100,5 @@ export type IRepoParameters = {
   maxItems: number
   maxPageSize: number
   maxDelayForRateLimit: number
+  repoOwnerType?: RepoOwnerType
 }

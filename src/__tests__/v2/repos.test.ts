@@ -37,7 +37,8 @@ describe('repos', () => {
       orgName: 'Azure-Sample',
       maxItems: numberOfRecordsReturned,
       maxPageSize: pageSize,
-      maxDelayForRateLimit: rateLimitMs
+      maxDelayForRateLimit: rateLimitMs,
+      repoOwnerType: 'organization'
     })
 
     expect(Array.isArray(reposReturned)).toBe(true)

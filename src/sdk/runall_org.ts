@@ -10,7 +10,8 @@ async function main(): Promise<unknown> {
     orgName: 'Azure-Samples',
     maxItems: -1,
     maxPageSize: 40,
-    maxDelayForRateLimit: 5000
+    maxDelayForRateLimit: 5000,
+    repoOwnerType: 'organization'
   })
 }
 main()
